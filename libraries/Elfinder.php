@@ -8,7 +8,7 @@ class Elfinder
 
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -41,7 +41,7 @@ class Elfinder
      */ 
     public static function getUser_dir()
     {
-        return self::user_dir;
+        return self::$user_dir;
     }
 
     /**
@@ -60,5 +60,6 @@ class Elfinder
         } else {
             $user_dir .= get_current_user().'/';
         }
+        self::$user_dir = realpath(self::$user_dir);
     }
 }
