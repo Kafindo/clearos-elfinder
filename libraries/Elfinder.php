@@ -102,7 +102,14 @@ class Elfinder
         $this->dir_now = end($this->dir_nav);
     }
 
-    public function autorisationChecker(string $file){
+
+    /**
+     * Check the file permissions
+     *
+     * @param string $file
+     * @return array
+     */
+    public function fileperms(string $file){
         $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
         $check = ["READ","WRITE","EXECUTE"];
         $return;
