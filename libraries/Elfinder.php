@@ -101,4 +101,29 @@ class Elfinder
     {
         $this->dir_now = end($this->dir_nav);
     }
+
+    public function autorisationChecker(string $file){
+        $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
+        $check = ["READ","WRITE","EXECUTE"];
+        $return;
+        if($perm[0] == 7){
+            $return = $check;
+        }elseif ($perm[0] == 6) {
+            $return = [$check[0],$check["1"]];
+        }elseif ($perm[0] = 5) {
+            $return = [$check[0],$check[2]];
+        }elseif ($perm[0] == 4) {
+            $return = $check[0];
+        }elseif ($perm[0] == 3) {
+            $return = [$check[1], $check[2]];
+        }elseif ($perm[0] == 2) {
+            $return = [$check[1]];
+        }elseif ($perm[0] == 1) {
+            $return = [$check[2]];
+        }else {
+            $return = null;
+        }
+        return $return;
+
+    }
 }
