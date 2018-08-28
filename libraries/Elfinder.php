@@ -3,10 +3,11 @@
     namespace clearos\apps\webfile_manager;
 class Elfinder
 {
+    public $next_dir;
     public $dir_now;
     public $dir_nav = array();
     static $site_folder = array();
-    static  $user_dir;
+    static $user_dir; 
 
     public function __construct()
     {
