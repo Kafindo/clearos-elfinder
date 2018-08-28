@@ -4,6 +4,7 @@
 class Elfinder
 {
     public $next_dir;
+    public $prev_dir;
     public $dir_now;
     public $dir_nav = array();
     static $site_folder = array();
@@ -121,5 +122,33 @@ class Elfinder
     public function getNext_dir()
     {
         return $this->next_dir;
+    }
+
+    /**
+     * Get the value of prev_dir
+     */ 
+    public function getPrev_dir()
+    {
+        return $this->prev_dir;
+    }
+
+    /**
+     * Set the value of next_dir
+     *
+     * @return  self
+     */ 
+    public function setNext_dir($next_dir)
+    {
+        $this->next_dir = $next_dir;
+    }
+
+    /**
+     * Set the value of prev_dir
+     *
+     * @return  self
+     */ 
+    public function setPrev_dir($prev_dir)
+    {
+        $this->prev_dir = $prev_dir;
     }
 }
