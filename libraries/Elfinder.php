@@ -41,7 +41,6 @@ class Elfinder
     }
 
     /**
-<<<<<<< HEAD
      * Get the value of user_dir
      */ 
     public static function getUser_dir()
@@ -177,7 +176,7 @@ class Elfinder
     public function mimetypechecker(string $file){
         return mime_content_type($file);
     }
-    
+
     /**
      *
      *
