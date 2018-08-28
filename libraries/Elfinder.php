@@ -152,10 +152,18 @@ class Elfinder
         $this->prev_dir = $prev_dir;
     }
 
+    /**
+     * Get the value of Current directory
+     *
+     */ 
     public function getCurrentDir(){
         return $this->dir_nav[$this->dir_now];
     }
 
+    /**
+     * Get the value of directory from dir_nav by index
+     *
+     */ 
     public function getDirByIndex(int $index = 0){
         return $this->dir_nav[$index];
     }
