@@ -167,4 +167,14 @@ class Elfinder
     public function getDirByIndex(int $index = 0){
         return $this->dir_nav[$index];
     }
+
+    /**
+     * Get mime type of file
+     * @param string $file
+     * @return string
+     * 
+     */ 
+    public function mimetypechecker(string $file){
+        return mime_content_type($file);
+    }
 }
