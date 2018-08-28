@@ -90,7 +90,7 @@ class Elfinder
      */ 
     public function getDir_now()
     {
-        return $this->dir_now;
+        return $this->dir_nav[$this->dir_now];
     }
 
     /**
@@ -100,7 +100,8 @@ class Elfinder
      */ 
     public function setDir_now()
     {
-        $this->dir_now = end($this->dir_nav);
+        $keys = array_keys();
+        $this->dir_now = end($keys);
     }
      /**
      * @param string
