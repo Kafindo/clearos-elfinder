@@ -39,6 +39,7 @@ class Elfinder
     }
 
     /**
+<<<<<<< HEAD
      * Get the value of user_dir
      */ 
     public static function getUser_dir()
@@ -100,5 +101,15 @@ class Elfinder
     public function setDir_now()
     {
         $this->dir_now = end($this->dir_nav);
+    }
+     /**
+     * @param string
+     * @return array
+     */
+    public static function subdir($path)
+    {
+        $sub_dirs = array();
+        $sub_dirs = glob($path . '*' , GLOB_ONLYDIR);
+        return $sub_dirs;
     }
 }
