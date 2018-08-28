@@ -151,4 +151,13 @@ class Elfinder
     {
         $this->prev_dir = $prev_dir;
     }
+
+    public function prevdir(){
+        if (count($this->dir_nav) > 1) {
+            $this->dir_now--;
+        } else {
+            return false;
+        }
+        
+    }
 }
