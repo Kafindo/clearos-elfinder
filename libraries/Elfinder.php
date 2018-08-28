@@ -34,4 +34,16 @@ class Elfinder
     {
         return self::$site_folder;
     }
+
+    /**
+     *
+     * @param string
+     * @return array
+     */
+    public static function subdir($path)
+    {
+        $sub_dirs = array();
+        $sub_dirs = glob($path . '*' , GLOB_ONLYDIR);
+        return $sub_dirs;
+    }
 }
