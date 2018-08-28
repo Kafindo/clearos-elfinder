@@ -112,4 +112,40 @@ class Elfinder
         $sub_dirs = glob($path . '*' , GLOB_ONLYDIR);
         return $sub_dirs;
     }
+    /**
+     *
+     *
+     */
+    public static function get_properties($path)
+    {
+        $infos = array();
+        if(is_dir($path))
+        {
+            $file = new \SplFileInfo($path);
+            $infos = array(
+                'folder_name' => $file->getFilename(),
+                'size' => $file->getSize(),
+                'owner' => $file->getOwner(),
+                'permission' => $file->getPerms()
+            );
+            return $infos;
+        }
+        else if (is_file($path))
+        {
+            $file = new \SplFileInfo($path);
+            $infos = array('file_name' => $file->getFilename(),
+                'file_size' => $file->getSize(),
+                'last_access_time' => $file->getATime(),
+                'last_modified_time' => $file->getMTime(),
+                'type' => $file->getType(),
+                'owner' => $file->getOwner(),
+                'permission' => $file->getPerms()
+            );
+            return $infos;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
