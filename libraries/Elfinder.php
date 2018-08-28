@@ -3,6 +3,7 @@
     namespace clearos\apps\webfile_manager;
 class Elfinder
 {
+    public $dir_now;
     public $dir_nav = array();
     static $site_folder = array();
     static  $user_dir;
@@ -77,8 +78,27 @@ class Elfinder
      *
      * @return  self
      */ 
-    public function setDir_nav($dir)
+    public function setDir_nav(string $dir)
     {
         $this->dir_nav[] = $dir;
+        $this->setDir_now();
+    }
+
+    /**
+     * Get the value of dir_now
+     */ 
+    public function getDir_now()
+    {
+        return $this->dir_now;
+    }
+
+    /**
+     * Set the value of dir_now
+     *
+     * @return  self
+     */ 
+    public function setDir_now()
+    {
+        $this->dir_now = end($this->dir_nav);
     }
 }
