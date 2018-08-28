@@ -114,4 +114,12 @@ class Elfinder
         $sub_dirs = glob($path . '*' , GLOB_ONLYDIR);
         return $sub_dirs;
     }
+
+    /**
+     * Get the value of next_dir
+     */ 
+    public function getNext_dir()
+    {
+        return $this->next_dir;
+    }
 }
