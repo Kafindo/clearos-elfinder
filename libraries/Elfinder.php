@@ -3,6 +3,7 @@
     namespace clearos\apps\webfile_manager;
 class Elfinder
 {
+    public $dir_nav = array();
     static $site_folder = array();
     static  $user_dir;
 
@@ -61,5 +62,23 @@ class Elfinder
             $user_dir .= get_current_user().'/';
         }
         self::$user_dir = realpath(self::$user_dir);
+    }
+
+    /**
+     * Get the value of dir_nav
+     */ 
+    public function getDir_nav()
+    {
+        return $this->dir_nav;
+    }
+
+    /**
+     * Set the value of dir_nav
+     *
+     * @return  self
+     */ 
+    public function setDir_nav($dir)
+    {
+        $this->dir_nav[] = $dir;
     }
 }
