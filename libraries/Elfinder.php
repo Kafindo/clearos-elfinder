@@ -292,4 +292,8 @@ class Elfinder
             return false;
         }
     }
+
+    public function chmod (string $filename ,int $mode){
+        return chmod ($filename , $mode);
+    } 
 }
