@@ -3,10 +3,12 @@
     namespace clearos\apps\webfile_manager;
 class Elfinder
 {
+    public $next_dir;
+    public $prev_dir;
     public $dir_now;
     public $dir_nav = array();
     static $site_folder = array();
-    static  $user_dir;
+    static $user_dir; 
 
     public function __construct()
     {
@@ -39,7 +41,6 @@ class Elfinder
     }
 
     /**
-<<<<<<< HEAD
      * Get the value of user_dir
      */ 
     public static function getUser_dir()
@@ -90,7 +91,7 @@ class Elfinder
      */ 
     public function getDir_now()
     {
-        return $this->dir_now;
+        return $this->dir_nav[$this->dir_now];
     }
 
     /**
@@ -100,7 +101,8 @@ class Elfinder
      */ 
     public function setDir_now()
     {
-        $this->dir_now = end($this->dir_nav);
+        $keys = array_keys();
+        $this->dir_now = end($keys);
     }
      /**
      * @param string
@@ -112,6 +114,69 @@ class Elfinder
         $sub_dirs = glob($path . '*' , GLOB_ONLYDIR);
         return $sub_dirs;
     }
+
+    /**
+     * Get the value of next_dir
+     */ 
+    public function getNext_dir()
+    {
+        return $this->next_dir;
+    }
+
+    /**
+     * Get the value of prev_dir
+     */ 
+    public function getPrev_dir()
+    {
+        return $this->prev_dir;
+    }
+
+    /**
+     * Set the value of next_dir
+     *
+     * @return  self
+     */ 
+    public function setNext_dir($next_dir)
+    {
+        $this->next_dir = $next_dir;
+    }
+
+    /**
+     * Set the value of prev_dir
+     *
+     * @return  self
+     */ 
+    public function setPrev_dir($prev_dir)
+    {
+        $this->prev_dir = $prev_dir;
+    }
+
+    /**
+     * Get the value of Current directory
+     *
+     */ 
+    public function getCurrentDir(){
+        return $this->dir_nav[$this->dir_now];
+    }
+
+    /**
+     * Get the value of directory from dir_nav by index
+     *
+     */ 
+    public function getDirByIndex(int $index = NULL){
+        return $this->dir_nav[$index];
+    }
+
+    /**
+     * Get mime type of file
+     * @param string $file
+     * @return string
+     * 
+     */ 
+    public function mimetypechecker(string $file){
+        return mime_content_type($file);
+    }
+
     /**
      *
      *
@@ -148,4 +213,69 @@ class Elfinder
             return false;
         }
     }
+
+
+    /**
+     * Check the file permissions
+     *
+     * @param string $file
+     * @return array
+     */
+    public function fileperms(string $file){
+        $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
+        $check = ["READ","WRITE","EXECUTE"];
+        $return = NULL;
+        if($perm[0] == 7){
+            $return = $check;
+        }elseif ($perm[0] == 6) {
+            $return = [$check[0],$check["1"]];
+        }elseif ($perm[0] = 5) {
+            $return = [$check[0],$check[2]];
+        }elseif ($perm[0] == 4) {
+            $return = $check[0];
+        }elseif ($perm[0] == 3) {
+            $return = [$check[1], $check[2]];
+        }elseif ($perm[0] == 2) {
+            $return = [$check[1]];
+        }elseif ($perm[0] == 1) {
+            $return = [$check[2]];
+        }else {
+            $return = null;
+        }
+        return $return;
+
+    }
+
+    public static function volumes()
+    {
+        $ouutput = array();
+        exec('fdisk -l',$ouutput);
+        return $ouutput;
+    }
+
+    /**
+     * Open a directory
+     *
+     * @param string $path
+     * @return array|bool
+     */
+    public static function open_dir(string $path)
+    {
+        if(is_dir($path))
+        {
+            $directory = opendir($path);
+            $contents = array();
+            while($item = readdir($directory)) {
+                if(($item != ".") && ($item != ".."))
+                    $contents[] = $item;
+            }
+            return $contents;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    
 }
