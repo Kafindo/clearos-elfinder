@@ -163,7 +163,7 @@ class Elfinder
      * Get the value of directory from dir_nav by index
      *
      */ 
-    public function getDirByIndex(int $index = 0){
+    public function getDirByIndex(int $index = NULL){
         return $this->dir_nav[$index];
     }
 
@@ -224,7 +224,7 @@ class Elfinder
     public function fileperms(string $file){
         $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
         $check = ["READ","WRITE","EXECUTE"];
-        $return;
+        $return = NULL;
         if($perm[0] == 7){
             $return = $check;
         }elseif ($perm[0] == 6) {
@@ -244,5 +244,31 @@ class Elfinder
         }
         return $return;
 
+    }
+
+    public static function volumes()
+    {
+        $ouutput = array();
+        exec('fdisk -l',$ouutput);
+        return $ouutput;
+    }
+
+
+    public static function open_dir(string $path)
+    {
+        if(is_dir($path))
+        {
+            $directory = opendir($path);
+            $contents = array();
+            while($item = readdir($directory)) {
+                if(($item != ".") && ($item != ".."))
+                    $contents[] = $item;
+            }
+            return $contents;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
