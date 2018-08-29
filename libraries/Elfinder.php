@@ -133,4 +133,24 @@ class Elfinder
         return $return;
 
     }
+
+    public function zipdl($folder){
+        $files = $this->subdir($folder);
+        $p = explode("/", $folder);
+        $p = end($p);
+        $zipname = $p.'zip';
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($files as $file) {
+        $zip->addFile($file);
+        }
+        $zip->close();
+        return $zipname;
+
+        //TODO: Add this on views
+        // header('Content-Type: application/zip');
+        // header("Content-Disposition: attachment; filename=".$zipname);
+        // header('Content-Length: ' . filesize($zipname));
+        // header("Location: ".$zipname);
+    }
 }
