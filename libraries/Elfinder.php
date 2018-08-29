@@ -133,4 +133,19 @@ class Elfinder
         return $return;
 
     }
+
+    public function archivExtract($file){
+        $ext = pathinfo($file,PATHINFO_EXTENSION);
+        if ($ext == "rar") {
+            $archive = RarArchive::open('archive.rar');
+            if ($archive === false) return;
+            $entries = $archive->getEntries();
+            if ($entries === false) return;
+            $archive->close();
+            return (array) $entries;
+        } else {
+            # code...
+        }
+        
+    }
 }
