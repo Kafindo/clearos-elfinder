@@ -311,4 +311,20 @@ class Elfinder
         }
     }
 
+    public function mkfile(string $file, string $path = null){
+        if ($path != null && is_dir($path)) {
+            if (!is_file(realpath($path."/".$file))) {
+                $handle = fopen(realpath($path."/".$file), 'w');
+                $v = true;
+            }else{
+                $v = false;
+            }
+        } else {
+            $handle = fopen(realpath($path."/".$file), 'w');
+            $v = true;
+        }
+        fclose($handle);
+        return $v;
+    }
+
 }
