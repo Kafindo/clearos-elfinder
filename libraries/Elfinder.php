@@ -295,5 +295,20 @@ class Elfinder
 
     public function chmod (string $filename ,int $mode){
         return chmod ($filename , $mode);
-    } 
+    }
+
+    public function mkdir(string $dirName, $rights = 0777){
+        $dirs = explode('/', $dirName);
+        $dir='';
+        if (is_array($dirs)) {
+            foreach ($dirs as $part) {
+                $dir.=$part.'/';
+                if (!is_dir($dir) && strlen($dir)>0)
+                    mkdir($dir, $rights);
+            }
+        } else {
+            mkdir($dir, $rights);
+        }
+    }
+
 }
