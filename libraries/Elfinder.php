@@ -251,7 +251,7 @@ class Elfinder
         $files = $this->subdir($folder);
         $p = explode("/", $folder);
         $p = end($p);
-        $zipname = $p.'zip';
+        $zipname = $p.'.zip';
         $zip = new ZipArchive;
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($files as $file) {
