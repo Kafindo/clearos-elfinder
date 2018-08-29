@@ -137,7 +137,7 @@ class Elfinder
     public function archivExtract($file){
         $ext = pathinfo($file,PATHINFO_EXTENSION);
         if ($ext == "rar") {
-            $archive = RarArchive::open('archive.rar');
+            $archive = RarArchive::open($file);
             if ($archive === false) return;
             $entries = $archive->getEntries();
             if ($entries === false) return;
@@ -145,15 +145,22 @@ class Elfinder
             return (array) $entries;
         } elseif($ext == "tar"){
             try {
-                $archive = new PharData('archive.tar');
+                $archive = new PharData($file);
             }
             catch (UnexpectedValueException $e) {
                 return;
             }
             if ($archive->count() === 0) return;
             return $archive;
-        } else {
-            # code...
+        } elseif($ext == "zip"){
+            $archive = new ZipArchive;
+            $valid = $archive->open($file);
+            if ($valid !== true) return;
+            if ($archive->numFiles === 0) return;
+            return (array) $archive;
+            $archive->close();
+        }else {
+            return;
         }
         
     }
