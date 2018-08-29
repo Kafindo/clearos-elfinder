@@ -327,4 +327,16 @@ class Elfinder
         return $v;
     }
 
+    public function rename (string $oldname ,string $newname){
+        if (is_file($newname)) {
+            return false;
+        } elseif(is_dir($newname)){
+            return null;
+        }else {
+            rename($oldname, $newname);
+            return true;
+        }
+        
+    }
+
 }
