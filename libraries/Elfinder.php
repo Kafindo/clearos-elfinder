@@ -143,6 +143,15 @@ class Elfinder
             if ($entries === false) return;
             $archive->close();
             return (array) $entries;
+        } elseif($ext == "tar"){
+            try {
+                $archive = new PharData('archive.tar');
+            }
+            catch (UnexpectedValueException $e) {
+                return;
+            }
+            if ($archive->count() === 0) return;
+            return $archive;
         } else {
             # code...
         }
