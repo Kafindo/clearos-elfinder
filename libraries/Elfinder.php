@@ -339,8 +339,4 @@ class Elfinder
         
     }
 
-    public function duplicate(){
-        
-    }
-
 }
