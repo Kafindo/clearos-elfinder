@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // C L A S S
 ///////////////////////////////////////////////////////////////////////////////
-
+use clearos\apps\webfile_manager\Elfinder as Elfinder;
 /**
  * CLEAROS Web File Manager controller.
  *
@@ -36,10 +36,15 @@ class Webfile_manager extends ClearOS_Controller
 
     function index()
     {
+        //
+
         // Load dependencies
         //------------------
 
         $this->lang->load('webfile_manager');
+        $this->load->library('webfile_manager/Elfinder');
+
+
 
         // Load views
         //-----------
