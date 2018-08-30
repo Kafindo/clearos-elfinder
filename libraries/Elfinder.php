@@ -357,4 +357,19 @@ class Elfinder
         rmdir($dirPath);
     }
 
+    function unlink ($filename) {
+        if (is_link ($filename)) {
+            $sym = @readlink ($filename);
+            if ( $sym ) {
+                return is_writable ($filename) && @unlink ($filename);
+            }
+        }
+    
+        if ( realpath ($filename) && realpath ($filename) !== $filename ) {
+            return is_writable ($filename) && @unlink (realpath ($filename));
+        }
+    
+        return is_writable ($filename) && @unlink ($filename);
+    }
+
 }
