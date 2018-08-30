@@ -36,12 +36,15 @@ class Webfile_manager extends ClearOS_Controller
 
     function index()
     {
+        //
+
         // Load dependencies
         //------------------
 
         $this->lang->load('webfile_manager');
         $this->load->library('webfile_manager/Elfinder');
-        var_dump(Elfinder::open_dir('/'));die;
+
+
 
         // Load views
         //-----------
