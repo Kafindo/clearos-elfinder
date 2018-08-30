@@ -25,11 +25,22 @@ class ComposerStaticInit99cec40560039367a640fdd1f67f83c5
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'F' => 
+        array (
+            'FtpClient' => 
+            array (
+                0 => __DIR__ . '/..' . '/nicolab/php-ftp-client/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit99cec40560039367a640fdd1f67f83c5::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit99cec40560039367a640fdd1f67f83c5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit99cec40560039367a640fdd1f67f83c5::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
