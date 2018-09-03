@@ -8,7 +8,8 @@ class Elfinder
     public $dir_now;
     public $dir_nav = array();
     static $site_folder = array();
-    static $user_dir; 
+    static $user_dir;
+    static $ERRORS = array(); 
 
     public function __construct()
     {
@@ -372,4 +373,22 @@ class Elfinder
         return is_writable ($filename) && @unlink ($filename);
     }
 
+
+    /**
+     * Get the value of ERRORS
+     */ 
+    public function getERRORS()
+    {
+        return $this->ERRORS;
+    }
+
+    /**
+     * Set the value of ERRORS
+     *
+     * @return  self
+     */ 
+    public function setERRORS($ERRORS)
+    {
+        $this->ERRORS = $ERRORS;
+    }
 }
