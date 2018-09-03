@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="assets/css/style.css"/>
 <?php
 
 /**
@@ -22,8 +23,6 @@ $this->lang->load('webfile_manager');
 ///////////////////////////////////////////////////////////////////////////////
 
 echo infobox_highlight(lang('webfile_manager_app_name'), '...');
-echo form_open_multipart('webfile_manager/upload_file');
-echo form_upload('userfile');
-echo form_submit('Validate');
-echo form_close();
-
+echo row_open();
+echo 'as';
+echo row_close();
