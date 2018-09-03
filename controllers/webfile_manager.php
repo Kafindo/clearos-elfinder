@@ -51,4 +51,12 @@ class Webfile_manager extends ClearOS_Controller
 
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
+
+    public function assets(){
+        $file = str_replace("webfile_manager/assets/","",uri_string());
+        if (is_file(realpath(__DIR__."/".$file))) {
+            header("Content-type: ".mime_content_type($file));
+            $this->load->view($file);            
+        }
+    }
 }
