@@ -9,6 +9,8 @@ class Elfinder
     public $dir_nav = array();
     static $site_folder = array();
     static $user_dir;
+    static $ERRORS = array();
+    static $TMP_DIR; 
 
     public function __construct()
     {
@@ -222,31 +224,31 @@ class Elfinder
      * @param string $file
      * @return array
      */
-    public function fileperms(string $file)
-    {
-        $perm = substr(sprintf("%o", fileperms("test.txt")), -3);
-        $check = ["READ", "WRITE", "EXECUTE"];
-        $return = NULL;
-        if ($perm[0] == 7) {
-            $return = $check;
-        } elseif ($perm[0] == 6) {
-            $return = [$check[0], $check["1"]];
-        } elseif ($perm[0] = 5) {
-            $return = [$check[0], $check[2]];
-        } elseif ($perm[0] == 4) {
-            $return = $check[0];
-        } elseif ($perm[0] == 3) {
-            $return = [$check[1], $check[2]];
-        } elseif ($perm[0] == 2) {
-            $return = [$check[1]];
-        } elseif ($perm[0] == 1) {
-            $return = [$check[2]];
-        } else {
-            $return = null;
-        }
-        return $return;
-
-    }
+//    public function fileperms(string $file)
+//    {
+//        $perm = substr(sprintf("%o", fileperms("test.txt")), -3);
+//        $check = ["READ", "WRITE", "EXECUTE"];
+//        $return = NULL;
+//        if ($perm[0] == 7) {
+//            $return = $check;
+//        } elseif ($perm[0] == 6) {
+//            $return = [$check[0], $check["1"]];
+//        } elseif ($perm[0] = 5) {
+//            $return = [$check[0], $check[2]];
+//        } elseif ($perm[0] == 4) {
+//            $return = $check[0];
+//        } elseif ($perm[0] == 3) {
+//            $return = [$check[1], $check[2]];
+//        } elseif ($perm[0] == 2) {
+//            $return = [$check[1]];
+//        } elseif ($perm[0] == 1) {
+//            $return = [$check[2]];
+//        } else {
+//            $return = null;
+//        }
+//        return $return;
+//
+//    }
 
     public static function volumes()
     {
@@ -345,29 +347,147 @@ class Elfinder
 
     }
 
-    public static function volumes()
-    {
-        $ouutput = array();
-        exec('fdisk -l',$ouutput);
-        return $ouutput;
+    /**
+     * @param string $folder
+     * @return string
+     */
+    public function zipdl($folder){
+        $files = $this->subdir($folder);
+        $p = explode("/", $folder);
+        $p = end($p);
+        $zipname = $p.'.zip';
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($files as $file) {
+            $zip->addFile($file);
+        }
+        $zip->close();
+        return $zipname;
+
+        //TODO: Add this on views
+        // header('Content-Type: application/zip');
+        // header("Content-Disposition: attachment; filename=".$zipname);
+        // header('Content-Length: ' . filesize($zipname));
+        // header("Location: ".$zipname);
     }
 
 
-    public static function open_dir(string $path)
-    {
-        if(is_dir($path))
-        {
-            $directory = opendir($path);
-            $contents = array();
-            while($item = readdir($directory)) {
-                if(($item != ".") && ($item != ".."))
-                    $contents[] = $item;
+
+    public function chmod (string $filename ,int $mode){
+        return chmod ($filename , $mode);
+    }
+
+    public function mkdir(string $dirName, $rights = 0777){
+        $dirs = explode('/', $dirName);
+        $dir='';
+        if (is_array($dirs)) {
+            foreach ($dirs as $part) {
+                $dir.=$part.'/';
+                if (!is_dir($dir) && strlen($dir)>0)
+                    mkdir($dir, $rights);
             }
-            return $contents;
+        } else {
+            mkdir($dir, $rights);
         }
-        else
-        {
+    }
+
+    public function mkfile(string $file, string $path = null){
+        if ($path != null && is_dir($path)) {
+            if (!is_file(realpath($path."/".$file))) {
+                $handle = fopen(realpath($path."/".$file), 'w');
+                $v = true;
+            }else{
+                $v = false;
+            }
+        } else {
+            $handle = fopen(realpath($path."/".$file), 'w');
+            $v = true;
+        }
+        fclose($handle);
+        return $v;
+    }
+
+    public function rename(string $oldname ,string $newname){
+        if (is_file($newname)) {
             return false;
+        } elseif(is_dir($newname)){
+            return null;
+        }else {
+            rename($oldname, $newname);
+            return true;
         }
+        
+    }
+
+    public static function deleteDir($dirPath) {
+        if (! is_dir($dirPath)) {
+            throw new InvalidArgumentException("$dirPath must be a directory");
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
+    }
+
+    function unlink ($filename) {
+        if (is_link ($filename)) {
+            $sym = @readlink ($filename);
+            if ( $sym ) {
+                return is_writable ($filename) && @unlink ($filename);
+            }
+        }
+    
+        if ( realpath ($filename) && realpath ($filename) !== $filename ) {
+            return is_writable ($filename) && @unlink (realpath ($filename));
+        }
+    
+        return is_writable ($filename) && @unlink ($filename);
+    }
+
+
+    /**
+     * Get the value of ERRORS
+     */ 
+    public function getERRORS()
+    {
+        return $this->ERRORS;
+    }
+
+    /**
+     * Set the value of ERRORS
+     *
+     * @return  self
+     */ 
+    public function setERRORS($ERRORS)
+    {
+        $this->ERRORS = $ERRORS;
+    }
+
+    /**
+     * Get the value of TMP_DIR
+     */ 
+    public function getTMP_DIR()
+    {
+        return $this->TMP_DIR;
+    }
+
+    /**
+     * Set the value of TMP_DIR
+     *
+     * @return  self
+     */ 
+    public function setTMP_DIR($TMP_DIR)
+    {
+        $this->TMP_DIR = $TMP_DIR;
+
+        return $this;
     }
 }

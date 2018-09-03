@@ -1,0 +1,132 @@
+[
+    {
+        "name": "nicolab/php-ftp-client",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Nicolab/php-ftp-client.git",
+            "reference": "0e0c7666bdc3fb9fc9e63b065c84979588101708"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Nicolab/php-ftp-client/zipball/0e0c7666bdc3fb9fc9e63b065c84979588101708",
+            "reference": "0e0c7666bdc3fb9fc9e63b065c84979588101708",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "time": "2017-01-20T06:44:54+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "FtpClient": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Tallefourtane",
+                "email": "dev@nicolab.net",
+                "homepage": "http://nicolab.net"
+            }
+        ],
+        "description": "A flexible FTP and SSL-FTP client for PHP. This lib provides helpers easy to use to manage the remote files.",
+        "homepage": "https://github.com/Nicolab/php-ftp-client",
+        "keywords": [
+            "file",
+            "ftp",
+            "helper",
+            "lib",
+            "server",
+            "sftp",
+            "ssl",
+            "ssl-ftp"
+        ]
+    },
+    {
+        "name": "wapmorgan/unified-archive",
+        "version": "0.1.0",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/wapmorgan/UnifiedArchive.git",
+            "reference": "4b32a58faac11f4872180e3ad3f0c8e7fa44fffc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/wapmorgan/UnifiedArchive/zipball/4b32a58faac11f4872180e3ad3f0c8e7fa44fffc",
+            "reference": "4b32a58faac11f4872180e3ad3f0c8e7fa44fffc",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "replace": {
+            "wapmorgan/cam": "1.0.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.8"
+        },
+        "suggest": {
+            "bin-ncompress": "TAR.Z support",
+            "docopt/docopt": "Requirement for cam (Console Archive Manager)",
+            "ext-bz2": "BZ2 and TAR.BZ2 support",
+            "ext-phar": "TAR support",
+            "ext-rar": "RAR support",
+            "ext-xz": "XZ and TAR.XZ support",
+            "ext-zip": "ZIP support",
+            "ext-zlib": "GZ and TAR.GZ support",
+            "gemorroj/archive7z": "7ZIP support",
+            "pear/archive_tar": "another TAR support",
+            "phpclasses/php-iso-file": "ISO support",
+            "wapmorgan/cab-archive": "CAB support"
+        },
+        "time": "2018-04-01T23:08:51+00:00",
+        "bin": [
+            "bin/cam"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "wapmorgan\\UnifiedArchive\\": "src/"
+            },
+            "files": [
+                "src/function.gzip_stat.php",
+                "src/stream.compress.lzw.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "wapmorgan",
+                "email": "wapmorgan@gmail.com",
+                "role": "developer"
+            }
+        ],
+        "description": "UnifiedArchive - unified interface to archive (zip, 7z, rar, gz, bz2, xz, cab, tar, tar.gz, tar.bz2, tar.x, tar.Z, iso) for listing, reading, extracting and creation + built-in console archive manager + fully implemented PclZip-like interface (create, listContent, extract, properties, add, delete, merge, duplicate).",
+        "keywords": [
+            "7z",
+            "archive",
+            "bzip2",
+            "cab",
+            "compression",
+            "gzip",
+            "iso",
+            "lzma2",
+            "ncompress",
+            "rar",
+            "tar",
+            "zip"
+        ]
+    }
+]
