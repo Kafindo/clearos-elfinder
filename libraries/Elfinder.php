@@ -9,7 +9,8 @@ class Elfinder
     public $dir_nav = array();
     static $site_folder = array();
     static $user_dir;
-    static $ERRORS = array(); 
+    static $ERRORS = array();
+    static $TMP_DIR; 
 
     public function __construct()
     {
@@ -390,5 +391,25 @@ class Elfinder
     public function setERRORS($ERRORS)
     {
         $this->ERRORS = $ERRORS;
+    }
+
+    /**
+     * Get the value of TMP_DIR
+     */ 
+    public function getTMP_DIR()
+    {
+        return $this->TMP_DIR;
+    }
+
+    /**
+     * Set the value of TMP_DIR
+     *
+     * @return  self
+     */ 
+    public function setTMP_DIR($TMP_DIR)
+    {
+        $this->TMP_DIR = $TMP_DIR;
+
+        return $this;
     }
 }
