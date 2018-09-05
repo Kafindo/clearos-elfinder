@@ -1,0 +1,43 @@
+/*body*/
+/*{*/
+    /*background-color: red;*/
+/*}*/
+div#left-menu
+{
+    background-color: rgba(200,200,200,0.2);
+    padding: 1%;
+    height: auto;
+    min-height: 400px;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+#left-menu a
+{
+    color: black;
+}
+#top-nav
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
+#left-menu::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+}
+#left-menu::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: lightgray;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);
+}
+div#main-content
+{
+    border: 1px solid rgba(220,220,220,0.2);
+    border-radius: 5px;
+    background-color: rgba(220,220,220,0.2);
+    min-height: 400px;
+}
+#nav
+{
+    background-color: red;
+}

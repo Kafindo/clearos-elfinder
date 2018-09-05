@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/css/style.css"/>
+<link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
 <?php
 
 /**
@@ -21,8 +21,20 @@ $this->lang->load('webfile_manager');
 ///////////////////////////////////////////////////////////////////////////////
 // Form
 ///////////////////////////////////////////////////////////////////////////////
-
-echo infobox_highlight(lang('webfile_manager_app_name'), '...');
+var_dump($actions);die;
 echo row_open();
-echo 'as';
+echo '<div id="top-nav">';
+foreach ($actions as $action)
+{
+    echo '<a title="'.$actions.'"><img src="'.base_url("webfile_manager").'/assets/img/svg/'.$action['icon'].'" width="25px"/> </a>';
+}
+
+echo '</div>';
 echo row_close();
+echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2' id='left-menu' role='menu'>
+             
+          </div>";
+echo "<div class='col-sm-10 col-md-10 col-lg-10 col-xs-10' id='main-content'>
+        
+      </div>";
+
