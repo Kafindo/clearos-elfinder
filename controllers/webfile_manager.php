@@ -45,18 +45,18 @@ class Webfile_manager extends ClearOS_Controller
         $this->load->library('webfile_manager/Elfinder');
 
         // Action table
-        //------------
+        //------------pn
         $actions = array(
-            'copy' => array('icon' => 'copy.svg', 'title' => 'Copy'),
-            'paste' => array('icon' => 'paste.svg', 'title' => 'Paste'),
-            'previous' => array('icon' => 'previous.svg','title' => 'Previous'),
-            'next' => array('icon' => 'next.svg', 'title' => 'Next'),
-            'parent_folder' => array('icon' => 'parent_folder.svg','title' => 'Parent folder'),
-            'upload' => array('icon' => 'upload.svg', 'title' => 'Upload'),
-            'download' => array('icon' => 'download.svg', 'title' => 'Download'),
-            'extract' => array('icon' => 'extract.svg', 'title' => 'Extract'),
-            'compress' => array('icon' => 'compress.svg', 'title' => 'Compress'),
-            'download_compress' => array('icon' => 'download_compress.svg', 'title' => 'Download And compress')
+            'copy' => array('icon' => 'copy.png', 'title' => 'Copy'),
+            'paste' => array('icon' => 'paste.png', 'title' => 'Paste'),
+            'previous' => array('icon' => 'previous.png','title' => 'Previous'),
+            'next' => array('icon' => 'next.png', 'title' => 'Next'),
+            'parent_folder' => array('icon' => 'parent_folder.png','title' => 'Parent folder'),
+            'upload' => array('icon' => 'upload.png', 'title' => 'Upload'),
+            'download' => array('icon' => 'download.png', 'title' => 'Download'),
+            'extract' => array('icon' => 'extract.png', 'title' => 'Extract'),
+            'compress' => array('icon' => 'compress.png', 'title' => 'Compress'),
+            'download_compress' => array('icon' => 'download_compress.png', 'title' => 'Download And compress')
         );
         $data['actions'] = $actions;
         // Load views
