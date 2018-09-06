@@ -501,7 +501,7 @@ class Elfinder
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
-        } elseif (is_file($file)) {
+        } elseif (is_file($file) && (pathinfo($file, PATHINFO_EXTENSION) != "")) {
             $img = pathinfo($file, PATHINFO_EXTENSION).".png";
         }
         return $img;
