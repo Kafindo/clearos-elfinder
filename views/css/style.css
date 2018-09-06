@@ -21,6 +21,10 @@ div#left-menu
     padding-right: 15px;
     padding-bottom: 5px;
 }
+#top-nav a
+{
+    margin: 5px;
+}
 #left-menu::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 4px;

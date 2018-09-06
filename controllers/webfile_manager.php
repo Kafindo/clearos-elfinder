@@ -44,12 +44,25 @@ class Webfile_manager extends ClearOS_Controller
         $this->lang->load('webfile_manager');
         $this->load->library('webfile_manager/Elfinder');
 
-
-
+        // Action table
+        //------------
+        $actions = array(
+            'copy' => array('icon' => 'copy.svg', 'title' => 'Copy'),
+            'paste' => array('icon' => 'paste.svg', 'title' => 'Paste'),
+            'previous' => array('icon' => 'previous.svg','title' => 'Previous'),
+            'next' => array('icon' => 'next.svg', 'title' => 'Next'),
+            'parent_folder' => array('icon' => 'parent_folder.svg','title' => 'Parent folder'),
+            'upload' => array('icon' => 'upload.svg', 'title' => 'Upload'),
+            'download' => array('icon' => 'download.svg', 'title' => 'Download'),
+            'extract' => array('icon' => 'extract.svg', 'title' => 'Extract'),
+            'compress' => array('icon' => 'compress.svg', 'title' => 'Compress'),
+            'download_compress' => array('icon' => 'download_compress.svg', 'title' => 'Download And compress')
+        );
+        $data['actions'] = $actions;
         // Load views
         //-----------
 
-        $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
+        $this->page->view_form('webfile_manager', $data, lang('webfile_manager_app_name'));
     }
 
     public function assets(){

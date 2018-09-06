@@ -21,20 +21,22 @@ $this->lang->load('webfile_manager');
 ///////////////////////////////////////////////////////////////////////////////
 // Form
 ///////////////////////////////////////////////////////////////////////////////
-var_dump($actions);die;
 echo row_open();
 echo '<div id="top-nav">';
 foreach ($actions as $action)
 {
-    echo '<a title="'.$actions.'"><img src="'.base_url("webfile_manager").'/assets/img/svg/'.$action['icon'].'" width="25px"/> </a>';
+    echo '<a title="'.$action['title'].'"><img src="'.base_url("webfile_manager").'/assets/img/icons/'.$action['icon'].'" width="25px"/> </a>';
 }
 
 echo '</div>';
 echo row_close();
 echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2' id='left-menu' role='menu'>
-             
+             <a class='col-md-12 col-lg-12 col-sm-12 col-xs-12'><i class='fa fa-file'   ></i>folder name</a>
           </div>";
 echo "<div class='col-sm-10 col-md-10 col-lg-10 col-xs-10' id='main-content'>
-        
+        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><i class='fa fa-file' style='font-size: 30px'></i>file name</a>
+        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><i class='fa fa-file' style='font-size: 30px'></i>file name</a>
+        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><i class='fa fa-file' style='font-size: 30px'></i>filename</a>
+        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><i class='fa fa-folder' style='font-size: 30px'></i>folder name</a>
       </div>";
 
