@@ -490,4 +490,20 @@ class Elfinder
 
         return $this;
     }
+
+    /**
+     * Set the value of TMP_DIR
+     *
+     * @param string $file
+     * @return  string $img
+     */
+    public function tmbIcon(string $file){
+        $img = "nonformat.png";
+        if (is_dir($file)) {
+            $img = "folder.png";
+        } elseif (is_file($file)) {
+            $img = pathinfo($file, PATHINFO_EXTENSION).".png";
+        }
+        return $img;
+    }
 }
