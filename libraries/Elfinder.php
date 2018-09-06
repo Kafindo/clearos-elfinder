@@ -492,7 +492,7 @@ class Elfinder
     }
 
     /**
-     * Set the value of TMP_DIR
+     * Set the value of TMB_ICON
      *
      * @param string $file
      * @return  string $img
