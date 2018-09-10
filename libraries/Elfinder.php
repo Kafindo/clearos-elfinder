@@ -10,7 +10,19 @@ class Elfinder
     static $site_folder = array();
     static $user_dir;
     static $ERRORS = array();
-    static $TMP_DIR; 
+    static $TMP_DIR;
+    public $actions = array(
+    'copy' => array('icon' => 'copy.png', 'title' => 'Copy'),
+    'paste' => array('icon' => 'paste.png', 'title' => 'Paste'),
+    'previous' => array('icon' => 'previous.png','title' => 'Previous'),
+    'next' => array('icon' => 'next.png', 'title' => 'Next'),
+    'parent_folder' => array('icon' => 'parent_folder.png','title' => 'Parent folder'),
+    'upload' => array('icon' => 'upload.png', 'title' => 'Upload'),
+    'download' => array('icon' => 'download.png', 'title' => 'Download'),
+    'extract' => array('icon' => 'extract.png', 'title' => 'Extract'),
+    'compress' => array('icon' => 'compress.png', 'title' => 'Compress'),
+    'download_compress' => array('icon' => 'download_compress.png', 'title' => 'Download And compress')
+    );
 
     public function __construct()
     {
@@ -506,4 +518,20 @@ class Elfinder
         }
         return $img;
     }
+
+        /**
+         * @return array
+         */
+        public function getActions()
+        {
+            return $this->actions;
+        }
+
+        /**
+         * @param array $actions
+         */
+        public function setActions($action)
+        {
+            $this->actions[] = $action;
+        }
 }

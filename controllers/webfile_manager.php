@@ -46,19 +46,8 @@ class Webfile_manager extends ClearOS_Controller
 
         // Action table
         //------------pn
-        $actions = array(
-            'copy' => array('icon' => 'copy.png', 'title' => 'Copy'),
-            'paste' => array('icon' => 'paste.png', 'title' => 'Paste'),
-            'previous' => array('icon' => 'previous.png','title' => 'Previous'),
-            'next' => array('icon' => 'next.png', 'title' => 'Next'),
-            'parent_folder' => array('icon' => 'parent_folder.png','title' => 'Parent folder'),
-            'upload' => array('icon' => 'upload.png', 'title' => 'Upload'),
-            'download' => array('icon' => 'download.png', 'title' => 'Download'),
-            'extract' => array('icon' => 'extract.png', 'title' => 'Extract'),
-            'compress' => array('icon' => 'compress.png', 'title' => 'Compress'),
-            'download_compress' => array('icon' => 'download_compress.png', 'title' => 'Download And compress')
-        );
-        $data['actions'] = $actions;
+
+        $data['actions'] = $this->Elfinder->getActions();
         // Load views
         //-----------
 
