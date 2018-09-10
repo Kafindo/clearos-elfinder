@@ -40,7 +40,7 @@ class Webfile_manager extends ClearOS_Controller
         $this->load->library('webfile_manager/Elfinder');
      }
 
-    function index()
+    function index(string $cmd = null, array $params = null)
     {
         //
 
