@@ -34,6 +34,13 @@ class Webfile_manager extends ClearOS_Controller
      * @return view
      */
 
+     function __construct()
+     {
+        parent::__construct();         
+        $this->load->library('webfile_manager/Elfinder');
+        $this->elfinder = new Elfinder();
+     }
+
     function index()
     {
         //
@@ -42,7 +49,6 @@ class Webfile_manager extends ClearOS_Controller
         //------------------
 
         $this->lang->load('webfile_manager');
-        $this->load->library('webfile_manager/Elfinder');
 
         // Action table
         //------------pn
