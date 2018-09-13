@@ -23,7 +23,12 @@ class Elfinder
     'compress' => array('icon' => 'compress.png', 'title' => 'Compress'),
     'download_compress' => array('icon' => 'download_compress.png', 'title' => 'Download And compress')
     );
-
+    public $command = array( 'copy', 'paste','previous','next','parent_folder','download','upload','setSiteFolder',
+    'getSiteFolder','getUser_dir','setUser_dir','getDir_nav','setDir_nav','getDir_now','setDir_now','subdir','getNext_dir',
+    'getPrev_dir','setNext_dir','setPrev_dir','getCurrentDir','getDirByIndex','mimetypechecker','get_properties','volumes',
+    'open_dir','upload_file','fileperms','zipdl','chmod','mkfile','rename','deleteDir','unlink','getERRORS','setERRORS',
+    'getTMP_DIR','setTMP_DIR','tmbIcon','getActions','setActions','extract','compress','wnload_compressdo');
+    
     public function __construct()
     {
 
