@@ -55,22 +55,21 @@ class Webfile_manager extends ClearOS_Controller
         if ($methodR->isStatic()){
            if( is_object(Elfinder::$cmd())){
                $recup=Elfinder::$cmd();
-               var_dump($recup);
+               return $recup;
            }else{
                Elfinder::$cmd();
-               return "Not return static function ";
            }
         }else{
             if( is_object($elfinder->$cmd())){
                $recup=$elfinder->$cmd();
-                var_dump($recup);
+                return $recup;
             }else{
                 $elfinder->$cmd();
-                echo("Not return function");
             }
         }
+        return null;
     }
-    
+
     public function assets(){
         $this->load->helper('file');        
         $file = str_replace("webfile_manager/assets/","",uri_string());
