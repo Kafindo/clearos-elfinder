@@ -42,6 +42,7 @@ class Webfile_manager extends ClearOS_Controller
 
     function index(string $cmd = null, array $params = null)
     {
+        // echo $cmd;
         //
 
         // Load dependencies
@@ -52,7 +53,11 @@ class Webfile_manager extends ClearOS_Controller
         // Action table
         //------------pn
 
-        $data['actions'] = $this->Elfinder->getActions();
+        $data['actions'] =Elfinder::getActions();
+        if ($cmd == 'user_dir') {
+            echo(Elfinder::getUser_dirJson());
+        }
+        // echo $cmd;
         // Load views
         //-----------
 

@@ -1,4 +1,5 @@
 <link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/user_dir.js"></script>
 <?php
 
 /**
@@ -27,6 +28,7 @@ foreach ($actions as $action)
 {
     echo '<a title="'.$action['title'].'"><img src="'.base_url("webfile_manager").'/assets/img/icons/'.$action['icon'].'" width="25px"/> </a>';
 }
+
 
 echo '</div>';
 echo row_close();

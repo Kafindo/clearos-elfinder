@@ -74,7 +74,7 @@ class Elfinder
     public static function getUser_dirJson(){
         self::setUser_dir();
         $elfinder= new Elfinder();
-        return json_encode($elfinder->open_dir(self::$user_dir));
+        return json_encode(self::open_dir("/"));
     }
     /**
      * Set the value of user_dir
