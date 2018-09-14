@@ -80,17 +80,4 @@ class Webfile_manager extends ClearOS_Controller
             show_404();
         }
     }
-
-    public function execute(string $cmd = null, array $params = null){
-        $this->load->library('webfile_manager/Elfinder');
-
-        $classRef = new ReflectionClass("Elfinder");
-        $methodRef = $classRef::getMethod($cmd);
-
-        echo($methodRef::isStatic());
-
-        // if ($methodRef::isStatic()) {
-
-        // }
-    }
 }
