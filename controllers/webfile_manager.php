@@ -40,23 +40,10 @@ class Webfile_manager extends ClearOS_Controller
         $this->load->library('webfile_manager/Elfinder');
      }
 
-    function index(string $cmd = null, array $params = null)
+    function index()
     {
-        //
-
-        // Load dependencies
-        //------------------
-
-        $this->lang->load('webfile_manager');
-
-        // Action table
-        //------------pn
-
-        $data['actions'] = $this->Elfinder->getActions();
-        // Load views
-        //-----------
-
-        $this->page->view_form('webfile_manager', $data, lang('webfile_manager_app_name'));
+        $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
+        $this->execute("setSiteFolder");
     }
 
     public function assets(){
@@ -68,5 +55,18 @@ class Webfile_manager extends ClearOS_Controller
         }else{
             show_404();
         }
+    }
+
+    public function execute(string $cmd = null, array $params = null){
+        $this->load->library('webfile_manager/Elfinder');
+
+        $classRef = new ReflectionClass("Elfinder");
+        $methodRef = $classRef::getMethod($cmd);
+
+        echo($methodRef::isStatic());
+
+        // if ($methodRef::isStatic()) {
+
+        // }
     }
 }
