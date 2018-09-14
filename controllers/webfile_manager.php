@@ -42,6 +42,8 @@ class Webfile_manager extends ClearOS_Controller
 
     function index()
     {
+        Elfinder::setUser_dir();
+        var_dump(Elfinder::getUser_dir());
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
 
