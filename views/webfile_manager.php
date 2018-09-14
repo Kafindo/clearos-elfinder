@@ -1,4 +1,5 @@
 <link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/user_dir.js"></script>
 <?php
 
 /**
