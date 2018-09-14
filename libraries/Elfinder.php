@@ -88,10 +88,10 @@ class Elfinder
         
         if ($u == FALSE) {
             $user_dir = "../files/";
-        } elseif ($u["uid"] == 1000) {
+        } elseif ($u["uid"] == 0) {
             $user_dir = "/home/";
         } else {
-            $user_dir = '/'.get_current_user() . '/';
+            $user_dir .= '/'.get_current_user() . '/';
         }
         self::$user_dir = realpath($user_dir);
     }
