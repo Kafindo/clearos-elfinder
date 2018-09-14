@@ -53,46 +53,17 @@ class Webfile_manager extends ClearOS_Controller
         // Action table
         //------------pn
 
-<<<<<<< HEAD
         $data['actions'] =Elfinder::getActions();
         if ($cmd == 'user_dir') {
             echo(Elfinder::getUser_dirJson());
         }
         // echo $cmd;
-=======
-        //$data['json_folder'] = Elfinder::getUser_dirJson();
->>>>>>> 89601076ba9d8e870498f0389a4ed15818336d55
         // Load views
         //-----------
-        $this->execute("getDir_nav");
+
         $this->page->view_form('webfile_manager', $data, lang('webfile_manager_app_name'));
     }
 
-    public function execute(string $cmd=null, array $params = null){
-    
-        $this->load->library('webfile_manager/Elfinder');
-        $elfinder= new Elfinder();
-        $classRef = new ReflectionClass($elfinder);
-        $methodR=$classRef->getMethod($cmd);
-
-        if ($methodR->isStatic()){
-           if( is_object(Elfinder::$cmd())){
-               $recup=Elfinder::$cmd();
-               var_dump($recup);
-           }else{
-               Elfinder::$cmd();
-               echo("Not return static function ");
-           }
-        }else{
-            if( is_object($elfinder->$cmd())){
-               $recup=$elfinder->$cmd();
-                var_dump($recup);
-            }else{
-                $elfinder->$cmd();
-                echo("Not return function");
-            }
-        }
-    }
     public function assets(){
         $this->load->helper('file');        
         $file = str_replace("webfile_manager/assets/","",uri_string());
