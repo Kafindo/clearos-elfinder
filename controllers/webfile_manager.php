@@ -58,7 +58,7 @@ class Webfile_manager extends ClearOS_Controller
                var_dump($recup);
            }else{
                Elfinder::$cmd();
-               echo("Not  return static function ");
+               echo("Not return static function ");
            }
         }else{
             if( is_object($elfinder->$cmd())){
