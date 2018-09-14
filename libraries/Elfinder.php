@@ -64,9 +64,18 @@ class Elfinder
      */
     public static function getUser_dir()
     {
+       
         return self::$user_dir;
+        }
+    /**
+     * Get return Directory to Json Format
+     * 
+     */
+    public static function getUser_dirJson(){
+        self::setUser_dir();
+        $elfinder= new Elfinder();
+        return json_encode($elfinder->open_dir(self::$user_dir));
     }
-
     /**
      * Set the value of user_dir
      *
@@ -76,14 +85,15 @@ class Elfinder
     {
         $user_dir = "/home/";
         $u = posix_getpwnam(get_current_user());
+        
         if ($u == FALSE) {
             $user_dir = "../files/";
         } elseif ($u["uid"] == 1000) {
             $user_dir = "/home/";
         } else {
-            $user_dir .= get_current_user() . '/';
+            $user_dir = '/'.get_current_user() . '/';
         }
-        self::$user_dir = realpath(self::$user_dir);
+        self::$user_dir = realpath($user_dir);
     }
 
     /**
