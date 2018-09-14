@@ -40,30 +40,12 @@ class Webfile_manager extends ClearOS_Controller
         $this->load->library('webfile_manager/Elfinder');
      }
 
-    function index(string $cmd = null, array $params = null)
+    function index()
     {
-        // echo $cmd;
-        //
-
-        // Load dependencies
-        //------------------
-
-        $this->lang->load('webfile_manager');
-
-        // Action table
-        //------------pn
-
-        $data['actions'] =Elfinder::getActions();
-        if ($cmd == 'user_dir') {
-            echo(Elfinder::getUser_dirJson());
-        }
-        // echo $cmd;
-        // Load views
-        //-----------
-
-        $this->page->view_form('webfile_manager', $data, lang('webfile_manager_app_name'));
+        $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
 
+   
     public function assets(){
         $this->load->helper('file');        
         $file = str_replace("webfile_manager/assets/","",uri_string());
