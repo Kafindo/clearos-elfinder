@@ -43,7 +43,6 @@ class Webfile_manager extends ClearOS_Controller
     function index()
     {
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
-        $this->execute("setSiteFolder");
     }
 
     public function assets(){
