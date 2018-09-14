@@ -45,6 +45,31 @@ class Webfile_manager extends ClearOS_Controller
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
 
+    public function execute(string $cmd=null, array $params = null){
+    
+        $this->load->library('webfile_manager/Elfinder');
+        $elfinder= new Elfinder();
+        $classRef = new ReflectionClass($elfinder);
+        $methodR=$classRef->getMethod($cmd);
+
+        if ($methodR->isStatic()){
+           if( is_object(Elfinder::$cmd())){
+               $recup=Elfinder::$cmd();
+               var_dump($recup);
+           }else{
+               Elfinder::$cmd();
+               echo("Not return static function ");
+           }
+        }else{
+            if( is_object($elfinder->$cmd())){
+               $recup=$elfinder->$cmd();
+                var_dump($recup);
+            }else{
+                $elfinder->$cmd();
+                echo("Not return function");
+            }
+        }
+    }
     public function assets(){
         $this->load->helper('file');        
         $file = str_replace("webfile_manager/assets/","",uri_string());
