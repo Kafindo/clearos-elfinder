@@ -1,5 +1,5 @@
 // alert( window.location.pathname);
-var jqxhr = $.get( "/app/webfile_manager/index/user_dir", function() {
+var jqxhr = $.get( "/app/webfile_manager/execute/user_dir", function() {
   })
     .done(function(data) {
       alert(data);
