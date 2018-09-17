@@ -72,9 +72,9 @@ class Elfinder
      * 
      */
     public static function getUser_dirJson(){
-        self::setUser_dir();
+        $t=self::setUser_dir();
         $elfinder= new Elfinder();
-        return json_encode($elfinder->open_dir(self::getUser_dir()));
+        return json_encode($elfinder->open_dir2(array( self::getUser_dir())));
     }
     /**
      * Set the value of user_dir
@@ -95,6 +95,8 @@ class Elfinder
             $user_dir .= '/'.get_current_user() . '/';
         }
         self::$user_dir = realpath($user_dir);
+    
+        return null;
     }
 
     /**
@@ -313,7 +315,28 @@ class Elfinder
             return false;
         }
     }
-    
+    public static function open_dir2(array $params){
+        $path=$params[0];
+        if(is_dir ($path)){
+            $file_folder=opendir($path);
+            $contents=array();
+            while($item =readdir($file_folder)){
+                if (($item != ".") && ($item != ".."))
+                {
+                    if(is_dir($path."/".$item)){
+                        $contents[]=array($item,"d");//d for directory
+                    }else{
+                        $contents[]=array($item,"f");// f for file
+                    }
+                }
+            }
+            
+            return $contents;
+        }else
+        {
+            return false;
+        }
+    }
     /**
      * upload a file
      *
