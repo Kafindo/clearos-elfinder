@@ -22,13 +22,14 @@ $this->lang->load('webfile_manager');
 ///////////////////////////////////////////////////////////////////////////////
 // Form
 ///////////////////////////////////////////////////////////////////////////////
+echo var_dump( $json_folder);
+
 echo row_open();
 echo '<div id="top-nav">';
 foreach ($actions as $action)
 {
     echo '<a title="'.$action['title'].'"><img src="'.base_url("webfile_manager").'/assets/img/icons/'.$action['icon'].'" width="25px"/> </a>';
 }
-
 
 echo '</div>';
 echo row_close();
