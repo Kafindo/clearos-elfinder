@@ -42,8 +42,7 @@ class Webfile_manager extends ClearOS_Controller
 
     function index()
     {
-        Elfinder::setUser_dir();
-        var_dump(Elfinder::getUser_dir());
+        //Elfinder::setUser_dir();        
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
 
@@ -53,22 +52,15 @@ class Webfile_manager extends ClearOS_Controller
         $elfinder= new Elfinder();
         $classRef = new ReflectionClass($elfinder);
         $methodR=$classRef->getMethod($cmd);
-
-        if ($methodR->isStatic()){
-           if( is_object(Elfinder::$cmd())){
-               $recup=Elfinder::$cmd();
-               return $recup;
-           }else{
-               Elfinder::$cmd();
-           }
+    
+        if ($methodR->isStatic()==true){
+            $recup=Elfinder::$cmd($params);
+            echo $recup;
         }else{
-            if( is_object($elfinder->$cmd())){
-               $recup=$elfinder->$cmd();
-                return $recup;
-            }else{
-                $elfinder->$cmd();
-            }
+            $recup=$elfinder->$cmd($params);
+            echo $recup;          
         }
+        
         return null;
     }
 

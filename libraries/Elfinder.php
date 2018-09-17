@@ -74,8 +74,7 @@ class Elfinder
     public static function getUser_dirJson(){
         self::setUser_dir();
         $elfinder= new Elfinder();
-       
-        return json_encode(self::open_dir(self::getUser_dir()));
+        return json_encode($elfinder->open_dir(self::getUser_dir()));
     }
     /**
      * Set the value of user_dir
@@ -84,8 +83,7 @@ class Elfinder
      */
     public static function setUser_dir()
     {
-       var_dump( posix_getpwnam(get_current_user()));
-       die();
+
         $user_dir = "/home/";
         $u = posix_getpwnam(get_current_user());
         
