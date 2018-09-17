@@ -109,10 +109,12 @@ class Elfinder
      *
      * @return  self
      */
-    public function setDir_nav(string $dir)
+    public function setDir_nav(array $params)
     {
+        $dir = $params[0];
         $this->dir_nav[] = $dir;
         $this->setDir_now();
+        return null;
     }
 
     /**
@@ -132,14 +134,16 @@ class Elfinder
     {
         $keys = array_keys();
         $this->dir_now = end($keys);
+        return null;
     }
 
     /**
      * @param string
      * @return array
      */
-    public static function subdir($path)
+    public static function subdir(array $params)
     {
+        $path = $params[0];
         $sub_dirs = array();
         $sub_dirs = glob($path . '*', GLOB_ONLYDIR);
         return $sub_dirs;
@@ -163,22 +167,24 @@ class Elfinder
 
     /**
      * Set the value of next_dir
-     *
-     * @return  self
+     *@param string $next_dir
      */
-    public function setNext_dir($next_dir)
+    public function setNext_dir(array $params)
     {
+        $next_dir = $params[0];
         $this->next_dir = $next_dir;
+        return null;
     }
 
     /**
      * Set the value of prev_dir
-     *
-     * @return  self
+     *@param string $prev_dir
      */
-    public function setPrev_dir($prev_dir)
+    public function setPrev_dir(array $params)
     {
+        $prev_dir = $params[0];
         $this->prev_dir = $prev_dir;
+        return null;
     }
 
     /**
@@ -216,8 +222,9 @@ class Elfinder
      * @param $path
      * @return array|bool
      */
-    public static function get_properties($path)
+    public static function get_properties(array $params)
     {
+        $path = $params[0];
         $infos = array();
         if (is_dir($path)) {
             $file = new \SplFileInfo($path);
@@ -290,8 +297,9 @@ class Elfinder
      * @param string $path
      * @return array|bool
      */
-    public static function open_dir(string $path)
+    public static function open_dir(array $params)
     {
+        $path = $params[0];
         if (is_dir($path)) {
             $directory = opendir($path);
             $contents = array();
@@ -349,7 +357,8 @@ class Elfinder
      * @param string $file
      * @return array
      */
-    public function fileperms(string $file){
+    public function fileperms(array $params){
+        $file = $params[0];
         $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
         $check = ["READ","WRITE","EXECUTE"];
         $return = NULL;
@@ -378,7 +387,8 @@ class Elfinder
      * @param string $folder
      * @return string
      */
-    public function zipdl($folder){
+    public function zipdl(array $params){
+        $folder = $params[0];
         $files = $this->subdir($folder);
         $p = explode("/", $folder);
         $p = end($p);
@@ -400,25 +410,41 @@ class Elfinder
 
 
 
-    public function chmod (string $filename ,int $mode){
-        return chmod ($filename , $mode);
+    public function chmod (array $params = []){
+        if(isset($params["filename"])){
+            if (!isset($params['mode']))
+                $params['mode'] = 777;
+            elseif (!is_integer($params['mode']))
+                $params['mode'] = 777;
+            return chmod($params['filename'], $params['mode']);
+        }else{
+            return false;
+        }
     }
 
-    public function mkdir(string $dirName, $rights = 0777){
+    public function mkdir(array $params){
+        $dirs = $params[0];
+        $rights = 777;
+        if(isset($params[1]))
+            $rights = $params[1];
+        if (!is_int($rights))
+            $rights = 777;
         $dirs = explode('/', $dirName);
         $dir='';
         if (is_array($dirs)) {
             foreach ($dirs as $part) {
                 $dir.=$part.'/';
                 if (!is_dir($dir) && strlen($dir)>0)
-                    mkdir($dir, $rights);
+                    return mkdir($dir, $rights);
             }
         } else {
-            mkdir($dir, $rights);
+           return mkdir($dirs, $rights);
         }
     }
 
-    public function mkfile(string $file, string $path = null){
+    public function mkfile(array $params){
+        $file = $params[0];
+        $path = isset($params[1]) ? $params[1] : null;
         if ($path != null && is_dir($path)) {
             if (!is_file(realpath($path."/".$file))) {
                 $handle = fopen(realpath($path."/".$file), 'w');
@@ -434,7 +460,11 @@ class Elfinder
         return $v;
     }
 
-    public function rename(string $oldname ,string $newname){
+    public function rename(array $params){
+        if (!isset($params[0], $params[1]))
+            return false; 
+        $oldname = $params[0];
+        $newname = $params[1];
         if (is_file($newname)) {
             return false;
         } elseif(is_dir($newname)){
