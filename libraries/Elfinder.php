@@ -500,7 +500,8 @@ class Elfinder
         
     }
 
-    public static function deleteDir($dirPath) {
+    public static function deleteDir(array $params) {
+        $dirPath = $params[0];
         if (! is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
         }
@@ -518,7 +519,8 @@ class Elfinder
         rmdir($dirPath);
     }
 
-    function unlink ($filename) {
+    function unlink (array $params) {
+        $filename = $params[0];
         if (is_link ($filename)) {
             $sym = @readlink ($filename);
             if ( $sym ) {
@@ -578,7 +580,8 @@ class Elfinder
      * @param string $file
      * @return  string $img
      */
-    public function tmbIcon(string $file){
+    public function tmbIcon(array $params){
+        $file = $params[0];
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
@@ -599,8 +602,9 @@ class Elfinder
         /**
          * @param array $actions
          */
-        public function setActions($action)
+        public function setActions(array $params)
         {
+            $action = $params[0];
             $this->actions[] = $action;
         }
 }
