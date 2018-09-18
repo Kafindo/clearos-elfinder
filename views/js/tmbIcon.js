@@ -1,3 +1,4 @@
+
 function getExtImg(filename,type) {
     if(type==="d")
     {
