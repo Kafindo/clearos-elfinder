@@ -66,15 +66,15 @@ class Elfinder
     {
        
         return self::$user_dir;
-        }
+    }
     /**
      * Get return Directory to Json Format
      * 
      */
     public static function getUser_dirJson(){
-        self::setUser_dir();
+        $t=self::setUser_dir();
         $elfinder= new Elfinder();
-        return json_encode(self::open_dir("/"));
+        return json_encode($elfinder->open_dir2(array( self::getUser_dir())));
     }
     /**
      * Set the value of user_dir
@@ -83,6 +83,7 @@ class Elfinder
      */
     public static function setUser_dir()
     {
+
         $user_dir = "/home/";
         $u = posix_getpwnam(get_current_user());
         
@@ -94,6 +95,8 @@ class Elfinder
             $user_dir .= '/'.get_current_user() . '/';
         }
         self::$user_dir = realpath($user_dir);
+    
+        return null;
     }
 
     /**
@@ -312,7 +315,28 @@ class Elfinder
             return false;
         }
     }
-    
+    public static function open_dir2(array $params){
+        $path=$params[0];
+        if(is_dir ($path)){
+            $file_folder=opendir($path);
+            $contents=array();
+            while($item =readdir($file_folder)){
+                if (($item != ".") && ($item != ".."))
+                {
+                    if(is_dir($path."/".$item)){
+                        $contents[]=array($item,"d");//d for directory
+                    }else{
+                        $contents[]=array($item,"f");// f for file
+                    }
+                }
+            }
+            
+            return $contents;
+        }else
+        {
+            return false;
+        }
+    }
     /**
      * upload a file
      *
@@ -476,7 +500,8 @@ class Elfinder
         
     }
 
-    public static function deleteDir($dirPath) {
+    public static function deleteDir(array $params) {
+        $dirPath = $params[0];
         if (! is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
         }
@@ -494,7 +519,8 @@ class Elfinder
         rmdir($dirPath);
     }
 
-    function unlink ($filename) {
+    function unlink (array $params) {
+        $filename = $params[0];
         if (is_link ($filename)) {
             $sym = @readlink ($filename);
             if ( $sym ) {
@@ -554,7 +580,8 @@ class Elfinder
      * @param string $file
      * @return  string $img
      */
-    public function tmbIcon(string $file){
+    public function tmbIcon(array $params){
+        $file = $params[0];
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
@@ -575,32 +602,15 @@ class Elfinder
         /**
          * @param array $actions
          */
-        public function setActions($action)
+        public function setActions(array $params)
         {
+            $action = $params[0];
             $this->actions[] = $action;
         }
 
         public static function search(string $keyword){
    
-                $q = $_POST["q"];
-                $hint = "";
-   
-                if ($q !== "") {
-                     $q = strtolower($q);
-                     $len = strlen($q);
-      
-                foreach($command as $name) {
-		
-                if (stristr($q, substr($name, 0, $len))) {
-                if ($hint === "") {
-                    $hint = $name;
-                }else {
-                     $hint .= ", $name";
-                            }
-                        }
-                    }
-                }
-                echo $hint === "" ? "Please enter a valid course name" : $hint;
+            $pp = shell_exec("find /");
 
         }
 }
