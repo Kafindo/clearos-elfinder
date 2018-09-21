@@ -625,7 +625,7 @@ class Elfinder
         }
 
         public static function search(string $keyword){
-            $keyword = escapeshellarg($keyword)   
+            $keyword = escapeshellarg($keyword);
             $p = shell_exec("find /home -name $keyword*");
 
         }

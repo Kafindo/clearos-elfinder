@@ -34,6 +34,6 @@ echo "<div class='col-sm-10 col-md-10 col-lg-10 col-xs-10' id='main-content'>
       </div>";?>
 <link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
 <script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/tmbIcon.js"></script>
-<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/path_urlz.js"></script>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/path_url.js"></script>
 <script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/user_dir.js"></script>
 
