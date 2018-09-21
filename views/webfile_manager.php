@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
 <script type="text/javascript" src="<?php echo base_url('webfile_manager'); ?>/assets/js/navigation.js"></script>
 <link href=" <?php echo base_url('webfile_manager'); ?>/assets/css/ui.fancytree.css" rel="stylesheet">
@@ -18,7 +19,10 @@
   });
   </script>
 <?php
+=======
+>>>>>>> 7a1fc5dd02260627f5125ef825f4c4b880d1865d
 
+<?php
 /**
  * CLEAROS Web File Manager controller.
  *
@@ -29,31 +33,29 @@
  * @copyright  2013 Your name / Company
  * @license    Your license
  */
-
 ///////////////////////////////////////////////////////////////////////////////
 // Load dependencies
 ///////////////////////////////////////////////////////////////////////////////
-
 $this->lang->load('webfile_manager');
-
 ///////////////////////////////////////////////////////////////////////////////
 // Form
 ///////////////////////////////////////////////////////////////////////////////
 echo row_open();
+echo "<p id='navigation_url'></p>";
 echo '<div id="top-nav">';
 foreach ($actions as $action)
 {
     echo '<a title="'.$action['title'].'"><img src="'.base_url("webfile_manager").'/assets/img/icons/'.$action['icon'].'" width="25px"/> </a>';
 }
-
 echo '</div>';
 echo row_close();
 echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2' id='tree' role='menu'>
           </div>";
 echo "<div class='col-sm-10 col-md-10 col-lg-10 col-xs-10' id='main-content'>
-        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><img src='".base_url('webfile_manager')."/assets/img/ext/aspx.png' width='40px'/>test.aspx</a>
-        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><img src='".base_url('webfile_manager')."/assets/img/ext/png.png' width='40px'/>pic001.png</a>
-        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><img src='".base_url('webfile_manager')."/assets/img/ext/avi.png' width='40px'/>avengers</a>
-        <a class='col-md-1 col-lg-1 col-sm-2 col-xs-2'><img src='".base_url('webfile_manager')."/assets/img/ext/aspx.png' width='40px'/>file name</a>
-      </div>";
+       
+      </div>";?>
+<link rel="stylesheet" href=" <?php echo base_url('webfile_manager'); ?>/assets/css/style.css"/>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/tmbIcon.js"></script>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/path_url.js"></script>
+<script src=" <?php echo base_url('webfile_manager'); ?>/assets/js/user_dir.js"></script>
 

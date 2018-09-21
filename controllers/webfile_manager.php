@@ -40,8 +40,9 @@ class Webfile_manager extends ClearOS_Controller
         $this->load->library('webfile_manager/Elfinder');
      }
 
-    function index(string $cmd = null, array $params = null)
+    function index()
     {
+<<<<<<< HEAD
         //
         $this->load->library('webfile_manager/Elfinder');
         // Load dependencies
@@ -55,9 +56,50 @@ class Webfile_manager extends ClearOS_Controller
         $data['actions'] = Elfinder::getActions();
         // Load views
         //-----------
-
-        $this->page->view_form('webfile_manager', $data, lang('webfile_manager_app_name'));
+=======
+        $test=$this->input->post("cmd");
+        //Elfinder::setUser_dir();        
+        $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
     }
+
+    public function execute(string $cmd=null, array $params = null){
+        
+        $this->load->library('webfile_manager/Elfinder');
+        $elfinder= new Elfinder();
+        $classRef = new ReflectionClass($elfinder);
+        $methodR=$classRef->getMethod($cmd);
+>>>>>>> 7a1fc5dd02260627f5125ef825f4c4b880d1865d
+
+        if ($methodR->isStatic()==true){
+            $recup=Elfinder::$cmd($params);
+            echo $recup;
+        }else{
+            $recup=$elfinder->$cmd($params);
+            echo $recup;          
+        }
+        return null;
+    }
+    //This function is for excecute params having path of file 
+    //In this method the first / is replaced with 'racine'
+    //$params replace the path of file or folder you want to excecute $cmd  
+    public function executeDirCmd(string $cmd=null, $params=array()){
+        $params=func_get_args();
+        unset($params[0]);
+        unset($params[1]);
+       $this->load->library('webfile_manager/Elfinder');
+       $elfinder= new Elfinder();
+       $classRef = new ReflectionClass($elfinder);
+       $methodR=$classRef->getMethod($cmd);
+       if ($methodR->isStatic()==true){
+           $recup=Elfinder::$cmd(array("/".join("/",$params)));
+           echo $recup;
+       }else{
+           $recup=$elfinder->$cmd(array("/".join("/",$params)));
+           echo $recup;          
+       }
+       return null;
+    }
+
 
     public function assets(){
         $this->load->helper('file');        
@@ -69,4 +111,5 @@ class Webfile_manager extends ClearOS_Controller
             show_404();
         }
     }
+   
 }

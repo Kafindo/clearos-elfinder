@@ -11,6 +11,7 @@ class Elfinder
     static $user_dir;
     static $ERRORS = array();
     static $TMP_DIR;
+    public static $actualuserpath;
     public $actions = array(
     'copy' => array('icon' => 'copy.png', 'title' => 'Copy'),
     'paste' => array('icon' => 'paste.png', 'title' => 'Paste'),
@@ -23,7 +24,12 @@ class Elfinder
     'compress' => array('icon' => 'compress.png', 'title' => 'Compress'),
     'download_compress' => array('icon' => 'download_compress.png', 'title' => 'Download And compress')
     );
-
+    public $command = array( 'copy', 'paste','previous','next','parent_folder','download','upload','setSiteFolder',
+    'getSiteFolder','getUser_dir','setUser_dir','getDir_nav','setDir_nav','getDir_now','setDir_now','subdir','getNext_dir',
+    'getPrev_dir','setNext_dir','setPrev_dir','getCurrentDir','getDirByIndex','mimetypechecker','get_properties','volumes',
+    'open_dir','upload_file','fileperms','zipdl','chmod','mkfile','rename','deleteDir','unlink','getERRORS','setERRORS',
+    'getTMP_DIR','setTMP_DIR','tmbIcon','getActions','setActions','extract','compress','wnload_compressdo');
+    
     public function __construct()
     {
 
@@ -59,26 +65,49 @@ class Elfinder
      */
     public static function getUser_dir()
     {
+        self::setUser_dir();
         return self::$user_dir;
     }
+    /**
+     * Get return Directory to Json Format
+     * 
+     */
 
+    public static function getUser_dirJson(){
+        $t=self::setUser_dir();
+        $elfinder= new Elfinder();
+        return json_encode($elfinder->open_dir2(array( self::getUser_dir())));
+    }
     /**
      * Set the value of user_dir
      *
      * @return  self
      */
+    public static function setActualUserPath(array $params){
+        self::$actualuserpathtualpath=$params[0];
+    }
+    public static function getActualUserPath(){
+       $d= self::setUser_dir();
+       $d1= self::setActualUserPath(array(getUser_dir()));
+       //var_dump(array (self::$actualuserpath()));die();
+       return json_decode (self::$actualuserpath());
+    }
     public static function setUser_dir()
     {
+
         $user_dir = "/home/";
         $u = posix_getpwnam(get_current_user());
+        
         if ($u == FALSE) {
             $user_dir = "../files/";
-        } elseif ($u["uid"] == 1000) {
-            $user_dir = "/home/";
+        } elseif ($u["uid"] == 0) {
+            $user_dir = "/home/rdccoder";
         } else {
-            $user_dir .= get_current_user() . '/';
+            $user_dir .= '/'.get_current_user() . '/';
         }
-        self::$user_dir = realpath(self::$user_dir);
+        self::$user_dir = realpath($user_dir);
+    
+        return null;
     }
 
     /**
@@ -94,10 +123,12 @@ class Elfinder
      *
      * @return  self
      */
-    public function setDir_nav(string $dir)
+    public function setDir_nav(array $params)
     {
+        $dir = $params[0];
         $this->dir_nav[] = $dir;
         $this->setDir_now();
+        return null;
     }
 
     /**
@@ -117,14 +148,16 @@ class Elfinder
     {
         $keys = array_keys();
         $this->dir_now = end($keys);
+        return null;
     }
 
     /**
      * @param string
      * @return array
      */
-    public static function subdir($path)
+    public static function subdir(array $params)
     {
+        $path = $params[0];
         $sub_dirs = array();
         $sub_dirs = glob($path . '*', GLOB_ONLYDIR);
         return $sub_dirs;
@@ -148,22 +181,24 @@ class Elfinder
 
     /**
      * Set the value of next_dir
-     *
-     * @return  self
+     *@param string $next_dir
      */
-    public function setNext_dir($next_dir)
+    public function setNext_dir(array $params)
     {
+        $next_dir = $params[0];
         $this->next_dir = $next_dir;
+        return null;
     }
 
     /**
      * Set the value of prev_dir
-     *
-     * @return  self
+     *@param string $prev_dir
      */
-    public function setPrev_dir($prev_dir)
+    public function setPrev_dir(array $params)
     {
+        $prev_dir = $params[0];
         $this->prev_dir = $prev_dir;
+        return null;
     }
 
     /**
@@ -201,8 +236,9 @@ class Elfinder
      * @param $path
      * @return array|bool
      */
-    public static function get_properties($path)
+    public static function get_properties(array $params)
     {
+        $path = $params[0];
         $infos = array();
         if (is_dir($path)) {
             $file = new \SplFileInfo($path);
@@ -275,8 +311,9 @@ class Elfinder
      * @param string $path
      * @return array|bool
      */
-    public static function open_dir(string $path)
+    public static function open_dir(array $params)
     {
+        $path = $params[0];
         if (is_dir($path)) {
             $directory = opendir($path);
             $contents = array();
@@ -289,7 +326,33 @@ class Elfinder
             return false;
         }
     }
-    
+    public static function open_dir2(array $params){
+        $path=$params[0];
+        if(is_dir ($path)){
+            $file_folder=opendir($path);
+            $contents=array();
+            while($item =readdir($file_folder)){
+                if (($item != ".") && ($item != ".."))
+                {
+                    if(is_dir($path."/".$item)){
+                        $contents[]=array($item,"d");//d for directory
+                    }else{
+                        $contents[]=array($item,"f");// f for file
+                    }
+                }
+            }
+            
+            return $contents;
+        }else
+        {
+            return false;
+        }
+    }
+    public static function open_dir2Json(array $params){
+     // var_dump($params);die();
+      return json_encode (self::open_dir2(array($params[0])));
+
+    }
     /**
      * upload a file
      *
@@ -334,7 +397,8 @@ class Elfinder
      * @param string $file
      * @return array
      */
-    public function fileperms(string $file){
+    public function fileperms(array $params){
+        $file = $params[0];
         $perm = substr(sprintf("%o",fileperms("test.txt")),-3);
         $check = ["READ","WRITE","EXECUTE"];
         $return = NULL;
@@ -363,7 +427,8 @@ class Elfinder
      * @param string $folder
      * @return string
      */
-    public function zipdl($folder){
+    public function zipdl(array $params){
+        $folder = $params[0];
         $files = $this->subdir($folder);
         $p = explode("/", $folder);
         $p = end($p);
@@ -385,25 +450,41 @@ class Elfinder
 
 
 
-    public function chmod (string $filename ,int $mode){
-        return chmod ($filename , $mode);
+    public function chmod (array $params = []){
+        if(isset($params["filename"])){
+            if (!isset($params['mode']))
+                $params['mode'] = 777;
+            elseif (!is_integer($params['mode']))
+                $params['mode'] = 777;
+            return chmod($params['filename'], $params['mode']);
+        }else{
+            return false;
+        }
     }
 
-    public function mkdir(string $dirName, $rights = 0777){
+    public function mkdir(array $params){
+        $dirs = $params[0];
+        $rights = 777;
+        if(isset($params[1]))
+            $rights = $params[1];
+        if (!is_int($rights))
+            $rights = 777;
         $dirs = explode('/', $dirName);
         $dir='';
         if (is_array($dirs)) {
             foreach ($dirs as $part) {
                 $dir.=$part.'/';
                 if (!is_dir($dir) && strlen($dir)>0)
-                    mkdir($dir, $rights);
+                    return mkdir($dir, $rights);
             }
         } else {
-            mkdir($dir, $rights);
+           return mkdir($dirs, $rights);
         }
     }
 
-    public function mkfile(string $file, string $path = null){
+    public function mkfile(array $params){
+        $file = $params[0];
+        $path = isset($params[1]) ? $params[1] : null;
         if ($path != null && is_dir($path)) {
             if (!is_file(realpath($path."/".$file))) {
                 $handle = fopen(realpath($path."/".$file), 'w');
@@ -419,7 +500,11 @@ class Elfinder
         return $v;
     }
 
-    public function rename(string $oldname ,string $newname){
+    public function rename(array $params){
+        if (!isset($params[0], $params[1]))
+            return false; 
+        $oldname = $params[0];
+        $newname = $params[1];
         if (is_file($newname)) {
             return false;
         } elseif(is_dir($newname)){
@@ -431,7 +516,8 @@ class Elfinder
         
     }
 
-    public static function deleteDir($dirPath) {
+    public static function deleteDir(array $params) {
+        $dirPath = $params[0];
         if (! is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
         }
@@ -449,7 +535,8 @@ class Elfinder
         rmdir($dirPath);
     }
 
-    function unlink ($filename) {
+    function unlink (array $params) {
+        $filename = $params[0];
         if (is_link ($filename)) {
             $sym = @readlink ($filename);
             if ( $sym ) {
@@ -509,7 +596,12 @@ class Elfinder
      * @param string $file
      * @return  string $img
      */
+<<<<<<< HEAD
     public static function tmbIcon(string $file){
+=======
+    public function tmbIcon(array $params){
+        $file = $params[0];
+>>>>>>> 7a1fc5dd02260627f5125ef825f4c4b880d1865d
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
@@ -530,8 +622,16 @@ class Elfinder
         /**
          * @param array $actions
          */
-        public function setActions($action)
+        public function setActions(array $params)
         {
+            $action = $params[0];
             $this->actions[] = $action;
         }
+
+        public static function search(string $keyword){
+            $keyword = escapeshellarg($keyword)   
+            $p = shell_exec("find /home -name $keyword*");
+
+        }
 }
+?>
