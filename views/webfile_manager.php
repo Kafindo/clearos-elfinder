@@ -41,6 +41,7 @@ echo '<div id="top-nav">';
 foreach ($actions as $action) {
     echo '<a title="' . $action['title'] . '"><img src="' . base_url("webfile_manager") . '/assets/img/icons/' . $action['icon'] . '" width="25px"/> </a>';
 }
+  echo form_input('search',null,'placeholder = "Search"');
 echo '</div>';
 echo row_close();
 echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2' id='tree' role='menu'>
