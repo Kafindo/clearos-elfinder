@@ -33,6 +33,7 @@ var jqxhr = $.get( "/app/webfile_manager/execute/getUser_dirJson", function() {
     var mainFrame=document.getElementById("main-content");
     for(var i =0;i<folder_files.length;i=i+2){
       var child= document.createElement("a");
+      child.setAttribute("ondblclick","NavigationFolder('"+folder_files[i]+"')");
       child.className="col-md-1 col-lg-1 col-sm-2 col-xs-2";
       var img=getExtImg(folder_files[i],folder_files[i+1]);
       child.innerHTML=img+folder_files[i];      
@@ -54,4 +55,9 @@ function regularise(data){
     areturner.push(concat); 
   }
   return areturner;
+}
+function NavigationFolder(url){
+  var uri=document.getElementById("navigation_url");
+  var text=uri.innerText;
+  alert(text);
 }

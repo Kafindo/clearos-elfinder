@@ -101,7 +101,7 @@ class Elfinder
         if ($u == FALSE) {
             $user_dir = "../files/";
         } elseif ($u["uid"] == 0) {
-            $user_dir = "/home/rdccoder";
+            $user_dir = "/home/";
         } else {
             $user_dir .= '/'.get_current_user() . '/';
         }
