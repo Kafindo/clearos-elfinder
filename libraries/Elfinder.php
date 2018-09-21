@@ -509,7 +509,7 @@ class Elfinder
      * @param string $file
      * @return  string $img
      */
-    public function tmbIcon(string $file){
+    public static function tmbIcon(string $file){
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
