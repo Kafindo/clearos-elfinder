@@ -1,6 +1,6 @@
 function myfunc(data){
     //alert(data);
-    Nagivation(data);
+   Nagivation(data);
 }
 
 function Nagivation(path){
@@ -24,5 +24,7 @@ function Nagivation(path){
         child.innerHTML=img+folder_files[i];      
         mainFrame.appendChild(child);
       }  
-  
+  function SetUrlInNavigation(url){
+    
+  }
 }

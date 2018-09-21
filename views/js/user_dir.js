@@ -15,8 +15,7 @@
         link.innerText=final_data[i];
         uri.appendChild(link);
         uri.appendChild(separator);
-      }
-      
+      }     
     })
     .fail(function(eror,e1,e2) {
       console.log(eror);
