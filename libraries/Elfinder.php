@@ -623,4 +623,11 @@ class Elfinder
             $action = $params[0];
             $this->actions[] = $action;
         }
+
+        public static function search(string $keyword){
+            $keyword = escapeshellarg($keyword)   
+            $p = shell_exec("find /home -name $keyword*");
+
+        }
 }
+?>
