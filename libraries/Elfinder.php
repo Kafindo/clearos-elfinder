@@ -11,6 +11,7 @@ class Elfinder
     static $user_dir;
     static $ERRORS = array();
     static $TMP_DIR;
+    public static $actualuserpath;
     public $actions = array(
     'copy' => array('icon' => 'copy.png', 'title' => 'Copy'),
     'paste' => array('icon' => 'paste.png', 'title' => 'Paste'),
@@ -64,13 +65,14 @@ class Elfinder
      */
     public static function getUser_dir()
     {
-       
+        self::setUser_dir();
         return self::$user_dir;
     }
     /**
      * Get return Directory to Json Format
      * 
      */
+
     public static function getUser_dirJson(){
         $t=self::setUser_dir();
         $elfinder= new Elfinder();
@@ -81,6 +83,15 @@ class Elfinder
      *
      * @return  self
      */
+    public static function setActualUserPath(array $params){
+        self::$actualuserpathtualpath=$params[0];
+    }
+    public static function getActualUserPath(){
+       $d= self::setUser_dir();
+       $d1= self::setActualUserPath(array(getUser_dir()));
+       //var_dump(array (self::$actualuserpath()));die();
+       return json_decode (self::$actualuserpath());
+    }
     public static function setUser_dir()
     {
 
@@ -90,7 +101,7 @@ class Elfinder
         if ($u == FALSE) {
             $user_dir = "../files/";
         } elseif ($u["uid"] == 0) {
-            $user_dir = "/home/";
+            $user_dir = "/home/rdccoder";
         } else {
             $user_dir .= '/'.get_current_user() . '/';
         }
@@ -336,6 +347,11 @@ class Elfinder
         {
             return false;
         }
+    }
+    public static function open_dir2Json(array $params){
+     // var_dump($params);die();
+      return json_encode (self::open_dir2(array($params[0])));
+
     }
     /**
      * upload a file
