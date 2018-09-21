@@ -596,12 +596,8 @@ class Elfinder
      * @param string $file
      * @return  string $img
      */
-<<<<<<< HEAD
-    public static function tmbIcon(string $file){
-=======
     public function tmbIcon(array $params){
         $file = $params[0];
->>>>>>> 7a1fc5dd02260627f5125ef825f4c4b880d1865d
         $img = "nonformat.png";
         if (is_dir($file)) {
             $img = "folder.png";
@@ -629,7 +625,7 @@ class Elfinder
         }
 
         public static function search(string $keyword){
-            $keyword = escapeshellarg($keyword)   
+            $keyword = escapeshellarg($keyword);   
             $p = shell_exec("find /home -name $keyword*");
 
         }
