@@ -84,13 +84,13 @@ class Elfinder
      * @return  self
      */
     public static function setActualUserPath(array $params){
-        self::$actualuserpathtualpath=$params[0];
+        //var_dump($params[0]);die;
+        self::$actualuserpath=realpath($params[0]);
     }
     public static function getActualUserPath(){
-       $d= self::setUser_dir();
-       $d1= self::setActualUserPath(array(getUser_dir()));
-       //var_dump(array (self::$actualuserpath()));die();
-       return json_decode (self::$actualuserpath());
+       $d= self::setUser_dir();    
+       $d1= self::setActualUserPath(array(self::getUser_dir()));
+       return json_encode (self::$actualuserpath);
     }
     public static function setUser_dir()
     {
@@ -101,7 +101,7 @@ class Elfinder
         if ($u == FALSE) {
             $user_dir = "../files/";
         } elseif ($u["uid"] == 0) {
-            $user_dir = "/home/rdccoder";
+            $user_dir = "/home/";
         } else {
             $user_dir .= '/'.get_current_user() . '/';
         }

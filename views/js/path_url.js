@@ -1,6 +1,7 @@
 function myfunc(data){
     //alert(data);
-    Nagivation(data);
+    SetUrlInNavigation(data);
+   Nagivation(data);
 }
 
 function Nagivation(path){
@@ -25,4 +26,24 @@ function Nagivation(path){
         mainFrame.appendChild(child);
       }  
   
+}
+function SetUrlInNavigation(data){
+  data=data.slice(0,-1);
+  var uri=document.getElementById("navigation_url");
+  uri.innerHTML="";
+    data=data.replace(/[[]/g,'').replace(/]/g,'').replace(/"/g,'').replace(/\\/g,'');
+    var url=data.split('/');
+    url[0]="/";
+    var final_data=regularise(url);
+    alert(data);
+    
+    for (let i = 0; i < final_data.length; i=i+2) {
+      var link=document.createElement("a");
+      link.setAttribute("onclick","myfunc('"+final_data[i+1]+"')");
+      var separator=document.createElement("span");
+      separator.innerText=" > ";
+      link.innerText=final_data[i];
+      uri.appendChild(link);
+      uri.appendChild(separator);
+    }
 }

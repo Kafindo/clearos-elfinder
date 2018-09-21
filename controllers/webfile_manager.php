@@ -42,21 +42,6 @@ class Webfile_manager extends ClearOS_Controller
 
     function index()
     {
-<<<<<<< HEAD
-        //
-        $this->load->library('webfile_manager/Elfinder');
-        // Load dependencies
-        //------------------
-
-        $this->lang->load('webfile_manager');
-
-        // Action table
-        //------------pn
-
-        $data['actions'] = Elfinder::getActions();
-        // Load views
-        //-----------
-=======
         $test=$this->input->post("cmd");
         //Elfinder::setUser_dir();        
         $this->page->view_form('webfile_manager', NULL, lang('webfile_manager_app_name'));
@@ -68,7 +53,6 @@ class Webfile_manager extends ClearOS_Controller
         $elfinder= new Elfinder();
         $classRef = new ReflectionClass($elfinder);
         $methodR=$classRef->getMethod($cmd);
->>>>>>> 7a1fc5dd02260627f5125ef825f4c4b880d1865d
 
         if ($methodR->isStatic()==true){
             $recup=Elfinder::$cmd($params);
